@@ -12,7 +12,7 @@ from read_data.ExampleDataLoader import ExampleDataLoader
 from data_process.dimensional_reduciton.LDA import LDAData
 from data_process.dimensional_reduciton.Slice import Slice
 from data_process.dimensional_reduciton.CC import CC
-from data_process.dimensional_reduciton.GaussianMixture_CC import GaussianMixture_CC
+from data_process.dimensional_reduciton.RLGMM import GMM
 from data_process.dimensional_reduciton.CCKNN import CCKNN
 from data_process.data_systhesis.Genetic_algorithm import GA
 from data_process.data_undersampling.undersampling import UndersamplingData
@@ -59,6 +59,9 @@ class Pipeline:
             self.data_obj.process()
         elif self.experiment == "slice":
             self.data_obj = Slice(self.dataloader)
+            self.data_obj.process()
+        elif self.experiment == "gmm":
+            self.data_obj = GMM(self.dataloader)
             self.data_obj.process()
         elif self.experiment == "slice_smote":
             self.data_obj = Slice(self.dataloader)
@@ -135,19 +138,19 @@ class Pipeline:
             ep = float(self.configs["-ep"])
             self.data_obj = LDAData(self.dataloader)
             self.data_obj.process(cp, ep)
-            self.data_obj = GaussianMixture_CC(self.data_obj)
+            self.data_obj = GMM(self.data_obj)
             self.data_obj.process()
         elif self.experiment == "pca_gm":
             cp = float(self.configs["-cp"])
             ep = float(self.configs["-ep"])
             self.data_obj = PCAData(self.dataloader)
             self.data_obj.process(cp, ep)
-            self.data_obj = GaussianMixture_CC(self.data_obj)
+            self.data_obj = GMM(self.data_obj)
             self.data_obj.process()
         elif self.experiment == "gm_lda":
             cp = float(self.configs["-cp"])
             ep = float(self.configs["-ep"])
-            self.data_obj = GaussianMixture_CC(self.dataloader)
+            self.data_obj = GMM(self.dataloader)
             self.data_obj.process()
             self.data_obj = LDAData(self.data_obj)
             self.data_obj.process(cp, ep)
