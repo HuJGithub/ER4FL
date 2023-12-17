@@ -5,7 +5,6 @@ from pipeline.Pipeline import Pipeline
 import datetime
 import time
 os.environ["CUDA_VISIBLE_DEVICES"] = '1'
-# -d "motivation" -p "artificial_bug" -i any -m "GP02"  -e cc
 def main():
 
     #start = time.time()
